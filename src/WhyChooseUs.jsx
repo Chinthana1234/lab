@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
     >
       {/* FULL-WIDTH BACKGROUND */}
       <div className="absolute inset-0 bg-neutral-100" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_20%,rgba(255,140,0,0.05),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_20%,rgba(6,182,212,0.1),transparent_60%)]" />
 
       {/* CONTENT CONTAINER */}
       <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -54,10 +54,10 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mb-20"
         >
-          <div className="mb-6 h-[2px] w-16 bg-orange-500"></div>
+          <div className="mb-6 h-[2px] w-16 bg-cyan-500"></div>
 
           <h2 className="font-display text-4xl font-semibold mb-6">
-            Why Choose <span className="text-orange-500">CeyTech Labs</span>
+            Why Choose <span className="text-cyan-600">K9C Labs</span>
           </h2>
 
           <p className="font-body text-lg text-gray-700 leading-relaxed">
@@ -82,13 +82,13 @@ export default function WhyChooseUs() {
                   bg-black text-white
                   rounded-2xl p-8
                   shadow-[0_20px_50px_rgba(0,0,0,0.35)]
-                  hover:shadow-[0_30px_70px_rgba(255,140,0,0.25)]
+                  hover:shadow-[0_30px_70px_rgba(6,182,212,0.25)]
                   transition
                 "
               >
                 {/* ICON */}
-                <div className="w-14 h-14 rounded-xl bg-orange-500/15 flex items-center justify-center mb-6">
-                  <Icon className="w-7 h-7 text-orange-500" />
+                <div className="w-14 h-14 rounded-xl bg-cyan-500/15 flex items-center justify-center mb-6">
+                  <Icon className="w-7 h-7 text-cyan-400" />
                 </div>
 
                 <h3 className="font-display text-xl font-semibold mb-3">
