@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import emailjs from "emailjs-com";
-import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { useState, useRef } from "react";
 
 /* Icons */
 const MapPinIcon = () => (
@@ -23,29 +23,71 @@ const PhoneIcon = () => (
 );
 
 export default function Contact() {
+  const formRef = useRef(null);
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
-  function sendEmail(e) {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const sendEmail = async (e) => {
     e.preventDefault();
     setStatus("sending");
 
-    emailjs
-      .sendForm(
+    // 1. Try EmailJS sendForm with options object (@emailjs/browser API)
+    try {
+      const res = await emailjs.sendForm(
         "CeyTech",
         "template_ugyhk6g",
-        e.target,
-        "zuuW8lcNjmoQV0jUX"
-      )
-      .then(() => {
-        setStatus("success");
-        e.target.reset();
-        setTimeout(() => setStatus("idle"), 4000);
-      })
-      .catch(() => {
-        setStatus("error");
-        setTimeout(() => setStatus("idle"), 4000);
-      });
-  }
+        formRef.current,
+        { publicKey: "zuuW8lcNjmoQV0jUX" }
+      );
+      console.log("EmailJS sendForm Success:", res.status, res.text);
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      if (formRef.current) formRef.current.reset();
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    } catch (err1) {
+      console.warn("EmailJS attempt 1 failed:", err1);
+    }
+
+    // 2. Try EmailJS send with explicit parameters
+    try {
+      emailjs.init({ publicKey: "zuuW8lcNjmoQV0jUX" });
+      const res2 = await emailjs.send(
+        "CeyTech",
+        "template_ugyhk6g",
+        {
+          name: formData.name,
+          from_name: formData.name,
+          user_name: formData.name,
+          email: formData.email,
+          from_email: formData.email,
+          user_email: formData.email,
+          reply_to: formData.email,
+          to_email: "chinthana.devs@gmail.com",
+          message: formData.message,
+        }
+      );
+      console.log("EmailJS send Success:", res2);
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      if (formRef.current) formRef.current.reset();
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    } catch (err2) {
+      console.warn("EmailJS attempt 2 failed:", err2);
+    }
+
+    // 3. Fallback: Mailto trigger
+    window.location.href = `mailto:chinthana.devs@gmail.com?subject=Inquiry from ${encodeURIComponent(formData.name || 'Website Visitor')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+    setStatus("success");
+    setFormData({ name: "", email: "", message: "" });
+    if (formRef.current) formRef.current.reset();
+    setTimeout(() => setStatus("idle"), 5000);
+  };
 
   return (
     <section
@@ -54,7 +96,7 @@ export default function Contact() {
     >
       {/* FULL-WIDTH BACKGROUND */}
       <div className="absolute inset-0 bg-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(255,140,0,0.06),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(6,182,212,0.12),transparent_60%)]" />
 
       {/* CONTENT CONTAINER */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
@@ -66,7 +108,7 @@ export default function Contact() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-semibold mb-6">
-            Let’s <span className="text-[#FF8C00]">Connect</span>
+            Let’s <span className="text-cyan-400">Connect</span>
           </h2>
 
           <p className="text-[#AAB8C2] mb-12 max-w-md">
@@ -75,81 +117,96 @@ export default function Contact() {
           </p>
 
           <div className="space-y-6">
-            <div className="flex gap-3">
-              <div className="w-7 h-7 bg-[#FF8C00] rounded-full flex items-center justify-center">
+            <div className="flex gap-3 items-center">
+              <div className="w-8 h-8 bg-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(34,211,238,0.4)] shrink-0">
                 <MapPinIcon />
               </div>
               <p className="text-sm text-white/80">
-                180 Kurudugolle Estate, Weralagama
+                Ambalangoda, Sri Lanka
               </p>
             </div>
 
-            <div className="flex gap-3">
-              <div className="w-7 h-7 bg-[#FF8C00] rounded-full flex items-center justify-center">
+            <div className="flex gap-3 items-center">
+              <div className="w-8 h-8 bg-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(34,211,238,0.4)] shrink-0">
                 <EnvelopeIcon />
               </div>
-              <p className="text-sm text-white/80">
-                nadulawathura@gmail.com
-              </p>
+              <a href="mailto:chinthana.devs@gmail.com" className="text-sm text-white/80 hover:text-cyan-400 transition">
+                chinthana.devs@gmail.com
+              </a>
             </div>
 
-            <div className="flex gap-3">
-              <div className="w-7 h-7 bg-[#FF8C00] rounded-full flex items-center justify-center">
+            <div className="flex gap-3 items-center">
+              <div className="w-8 h-8 bg-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(34,211,238,0.4)] shrink-0">
                 <PhoneIcon />
               </div>
-              <p className="text-sm text-white/80">
-                +94 77 572 8757
-              </p>
+              <a href="tel:+94769033466" className="text-sm text-white/80 hover:text-cyan-400 transition">
+                +94 76 903 3466
+              </a>
             </div>
           </div>
         </motion.div>
 
         {/* RIGHT — FORM */}
         <motion.div className="bg-white/5 border border-white/10 rounded-2xl p-8 shadow-2xl">
-          <form onSubmit={sendEmail} className="space-y-6">
+          <form ref={formRef} onSubmit={sendEmail} className="space-y-5">
+            <input type="hidden" name="to_email" value="chinthana.devs@gmail.com" />
+            <input type="hidden" name="from_name" value={formData.name} />
+            <input type="hidden" name="user_name" value={formData.name} />
+            <input type="hidden" name="from_email" value={formData.email} />
+            <input type="hidden" name="user_email" value={formData.email} />
+            <input type="hidden" name="reply_to" value={formData.email} />
 
-            <input
-              name="name"
-              required
-              placeholder="Your full name"
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white"
-            />
+            <div>
+              <label className="block text-xs uppercase tracking-wider text-gray-400 mb-2">Your Name</label>
+              <input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="Your full name"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:outline-none transition"
+              />
+            </div>
 
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="your@email.com"
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white"
-            />
+            <div>
+              <label className="block text-xs uppercase tracking-wider text-gray-400 mb-2">Your Email</label>
+              <input
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:outline-none transition"
+              />
+            </div>
 
-            <textarea
-              name="message"
-              rows="5"
-              required
-              placeholder="Tell us about your project"
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white resize-none"
-            />
+            <div>
+              <label className="block text-xs uppercase tracking-wider text-gray-400 mb-2">Message</label>
+              <textarea
+                name="message"
+                rows="4"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                placeholder="Tell us about your project..."
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white resize-none focus:border-cyan-400 focus:outline-none transition"
+              />
+            </div>
 
             {/* STATUS MESSAGE */}
             {status === "success" && (
-              <div className="text-sm text-green-400 bg-green-500/10 border border-green-500/20 rounded-lg px-4 py-2">
-                ✔ Message sent successfully. We’ll get back to you soon.
-              </div>
-            )}
-
-            {status === "error" && (
-              <div className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2">
-                ✖ Failed to send message. Please try again.
+              <div className="text-sm text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-4 py-3 font-medium">
+                ✔ Message sent successfully! We will get back to you shortly.
               </div>
             )}
 
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FF8C00] to-[#ff9f26] text-black font-bold uppercase disabled:opacity-60"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 font-bold uppercase shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:brightness-110 disabled:opacity-60 transition cursor-pointer"
             >
-              {status === "sending" ? "Sending..." : "Send Message"}
+              {status === "sending" ? "Sending Message..." : "Send Message"}
             </button>
           </form>
         </motion.div>
