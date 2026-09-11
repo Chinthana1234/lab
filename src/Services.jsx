@@ -82,7 +82,7 @@ export default function Services() {
     >
       {/* FULL-WIDTH BACKGROUND */}
       <div className="absolute inset-0 bg-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,140,0,0.05),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,0.15),transparent_70%)]" />
 
       {/* HEADER */}
       <motion.div
@@ -92,7 +92,7 @@ export default function Services() {
         transition={{ duration: 0.8 }}
         className="relative z-10 max-w-7xl mx-auto px-6 text-center mb-20"
       >
-        <h2 className="text-5xl font-bold text-orange-500">
+        <h2 className="text-5xl font-bold text-cyan-400">
           Our Services
         </h2>
         <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
@@ -118,7 +118,7 @@ export default function Services() {
               rounded-2xl overflow-hidden
               bg-white/5 backdrop-blur-md
               border border-white/10
-              hover:border-orange-500/40
+              hover:border-cyan-400/50
               shadow-[0_20px_60px_rgba(0,0,0,0.5)]
             "
           >
@@ -135,7 +135,7 @@ export default function Services() {
             {/* CONTENT */}
             <div className="relative p-6">
               {/* ICON */}
-              <div className="absolute -top-8 left-6 w-14 h-14 rounded-xl bg-orange-500 flex items-center justify-center shadow-lg">
+              <div className="absolute -top-8 left-6 w-14 h-14 rounded-xl bg-cyan-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
                 <img
                   src={service.icon}
                   alt={`${service.title} icon`}
