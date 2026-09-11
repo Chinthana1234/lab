@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="relative w-full bg-black text-white border-t border-white/10 overflow-hidden">
 
       {/* FULL-WIDTH BACKGROUND GLOW */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,140,0,0.05),transparent_60%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.12),transparent_60%)]"></div>
 
       {/* CONTENT CONTAINER */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
@@ -23,7 +23,7 @@ export default function Footer() {
           {/* BRAND */}
           <div>
             <h3 className="font-display text-2xl font-semibold mb-4">
-              CeyTech <span className="text-[#FF8C00]">Labs</span>
+              K9C <span className="text-cyan-400">Labs</span>
             </h3>
             <p className="font-body text-[#AAB8C2] text-sm leading-relaxed">
               Building modern websites, intelligent systems, and digital
@@ -38,22 +38,22 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="#about" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+                <a href="#about" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                   About
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+                <a href="#services" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                   Services
                 </a>
               </li>
               <li>
-                <a href="#work" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+                <a href="#work" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                   Work
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+                <a href="#contact" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                   Contact
                 </a>
               </li>
@@ -81,20 +81,21 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[#AAB8C2] text-sm">
               <li className="flex items-center gap-2">
-                <Mail size={14} /> info@ceytechlabs.com
+                <Mail size={14} /> chinthana.devs@gmail.com
               </li>
-              <li>Sri Lanka</li>
+              <li>+94 76 903 3466</li>
+              <li>Ambalangoda, Sri Lanka</li>
             </ul>
 
             {/* SOCIAL ICONS */}
             <div className="flex gap-4 mt-6">
-              <a href="#" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+              <a href="#" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                 <Facebook size={18} />
               </a>
-              <a href="#" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+              <a href="#" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                 <MessageCircle size={18} />
               </a>
-              <a href="#" className="text-[#AAB8C2] hover:text-[#FF8C00] transition">
+              <a href="#" className="text-[#AAB8C2] hover:text-cyan-400 transition">
                 <Instagram size={18} />
               </a>
             </div>
@@ -104,7 +105,7 @@ export default function Footer() {
 
         {/* BOTTOM BAR */}
         <div className="pt-6 border-t border-white/10 text-center text-sm text-[#AAB8C2]">
-          © {new Date().getFullYear()} CeyTech Labs. All rights reserved.
+          © {new Date().getFullYear()} K9C Labs. All rights reserved.
         </div>
 
       </div>
